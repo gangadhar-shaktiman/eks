@@ -8,8 +8,5 @@
   default = "subnet-09a8e0d6667281cd8"
  }
 
-  variable "sg_ids" {
-  type = string
- }
 
 
