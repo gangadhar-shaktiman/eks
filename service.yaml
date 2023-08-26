@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  graphql
+  namespace: graphql-dev-ns
+spec:
+  selector:
+    app:  graphql
+  type:  ClusterIP
+  ports:
+  - name:  graphql-port
+    port:  4000
+    targetPort:  4000

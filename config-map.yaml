@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: graphql-env
+  labels:
+    app: graphql-env
+  namespace: graphql-dev-ns
+data:
+  DATABASE_URL: mongodb+srv://atlasAdmin:m9yrCL1hikEj8BUU@offsetmaxcluster0.6zak4.mongodb.net/offsetmaxsandbox
