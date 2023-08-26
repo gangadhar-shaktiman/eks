@@ -85,7 +85,9 @@ resource "aws_eks_node_group" "offsetmax_nodes" {
   capacity_type   = "ON_DEMAND"
 
 
-  labels = offsetmax
+  labels = {
+    "Name"="offsetmax"
+}
 
   scaling_config {
     desired_size = 1
