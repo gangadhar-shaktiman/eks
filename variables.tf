@@ -12,7 +12,4 @@
   type = string
  }
 
- variable "subnet_ids" {
-  type    = list(string)
-  default = [var.subnet_id_1, var.subnet_id_2]  
-}
+
