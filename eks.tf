@@ -83,10 +83,7 @@ resource "aws_eks_node_group" "offsetmax_nodes" {
   subnet_ids      = [var.subnet_id_1, var.subnet_id_2]
   instance_types  = ["t3.xlarge"]
   capacity_type   = "ON_DEMAND"
-  remote_access {
-    ec2_ssh_key = ""
-    source_security_group_ids = [var.sg_ids]
-  }
+
 
   labels = offsetmax
 
