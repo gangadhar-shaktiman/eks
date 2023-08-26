@@ -1,12 +1,5 @@
-data "aws_subnet" "existing_subnets" {
-  count = length(var.subnet_ids)
-  id    = var.subnet_ids[count.index]
-}
-
-resource "aws_subnet" "example_subnets" {
-  count  = length(data.aws_subnet.existing_subnets)
-  vpc_id = "vpc-011f1b733d94aa911"
-  cidr_block = data.aws_subnet.existing_subnets[count.index].cidr_block
+resource "aws_default_subnet" "default_az1" {
+  availability_zone = "ap-south-1a"
 
   tags = {
     "Name"                       = "public-ap-south-1"
@@ -15,3 +8,12 @@ resource "aws_subnet" "example_subnets" {
   }
 }
 
+resource "aws_default_subnet" "default_az2" {
+  availability_zone = "ap-south-1b"
+
+  tags = {
+    "Name"                       = "public-ap-south-1"
+    "kubernetes.io/role/elb"     = "1"
+    "kubernetes.io/cluster/offsetmax_cluster" = "shared"
+  }
+}
