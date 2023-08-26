@@ -1,0 +1,57 @@
+name: Node js app deploy to EKS
+on:
+  push:
+    branches: [ "EKS" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-south-1
+
+   # - name: Login to Amazon ECR
+    #  id: login-ecr
+     # uses: aws-actions/amazon-ecr-login@v1
+    #- name: Build and push Docker image
+     # env:
+      #  ECR_REGISTRY: 168933414344.dkr.ecr.ap-south-1.amazonaws.com
+      #  IMAGE_NAME: offsetmax-graphql-db-dev
+      #run: |
+      #  docker build -t $ECR_REGISTRY/$IMAGE_NAME:latest  .
+       # docker push $ECR_REGISTRY/$IMAGE_NAME:latest
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: latest
+    - name: Terraform Init
+      run: terraform init -backend-config="key=eks-Graphql-db-dev/terraform.tfstate"
+    - name: Terraform Plan
+      run: terraform plan
+    - name: terraform apply
+      run: terraform apply -auto-approve
+
+    - name: Setup EKS Kubectl
+      uses: zachguo/setup-eks-kubectl@v1
+      with:
+        cluster: offsetmax_cluster 
+        region: ap-south-1
+       
+
+    - name: Update kube config
+      run: aws eks update-kubeconfig --name offsetmax_cluster
+    
+    - name: Deploy to EKS
+      run: |
+        kubectl apply -f deployment.yaml
+        kubectl apply -f service.yaml
+        kubectl apply -f config-map.yaml
+        kubectl apply -f service.yaml
