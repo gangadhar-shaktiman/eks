@@ -1,10 +1,10 @@
 data "aws_subnet" "existing_subnets" {
-  count = length(concat(var.subnet_id_1, var.subnet_id_2))
-  id    = element(concat(var.subnet_id_1, var.subnet_id_2), count.index)
+  count = length(var.subnet_id_1,var.subnet_id_2)
+  id    = var.subnet_ids[count.index]
 }
 
 resource "aws_subnet" "example_subnets" {
-  count = length(concat(var.subnet_id_1, var.subnet_id_2))
+  count = length(var.subnet_id_1,var.subnet_id_2)
   id    = data.aws_subnet.existing_subnets[count.index].id
   tags = {
     "Name"                       = "public-ap-south-1"
@@ -12,4 +12,3 @@ resource "aws_subnet" "example_subnets" {
     "kubernetes.io/cluster/offsetmax_cluster" = "shared"
   }
 }
-
