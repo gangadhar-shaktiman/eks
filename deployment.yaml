@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  graphql
+  labels:
+    app:  graphql
+  namespace: graphql-dev-ns
+spec:
+  selector:
+    matchLabels:
+      app: graphql
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  graphql
+    spec:
+      containers:
+      - image: 168933414344.dkr.ecr.ap-south-1.amazonaws.com/offsetmax-graphql-db-dev:latest   ##changes
+        imagePullPolicy: Always
+        name:  graphql
+        envFrom:
+          - configMapRef:
+              name: graphql-env
+        resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m    
+        ports:
+        - containerPort:  4000
+          name: graphql-port
+      restartPolicy: Always
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: graphql
+  managedFields:
+    - apiVersion: autoscaling/v1
+      fieldsType: FieldsV1
+  namespace: graphql-dev-ns
+spec:
+  maxReplicas: 5
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: graphql
+  targetCPUUtilizationPercentage: 70
