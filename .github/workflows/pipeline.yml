@@ -46,7 +46,7 @@ jobs:
         region: ap-south-1
 
 
-       
+
 
     - name: Update kube config
       run: aws eks update-kubeconfig --name offsetmax-cluster
