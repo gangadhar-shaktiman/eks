@@ -62,13 +62,14 @@ jobs:
 
     
     - name: Installing the AWS Load Balancer Controller add-on
-      run: eksctl create iamserviceaccount \
-            --cluster=offsetmax_cluster \
-            --namespace=kube-system  \
-            --name=aws-load-balancer-controller \
-            --role-name=AmazonEKSLoadBalancerControllerRole \
-            --attach-policy-arn=arn:aws:iam::168933414344:policy/AWSLoadBalancerControllerIAMPolicy \
-            --approve
+      run: |
+        eksctl create iamserviceaccount \
+        --cluster=offsetmax_cluster \
+        --namespace=kube-system \
+        --name=aws-load-balancer-controller \
+        --role-name AmazonEKSLoadBalancerControllerRole \
+        --attach-policy-arn=arn:aws:iam::168933414344:policy/AWSLoadBalancerControllerIAMPolicy \
+        --approve
     
     - name: Deploy to EKS
       run: |
