@@ -62,7 +62,7 @@ jobs:
 
         sudo mv /tmp/eksctl /usr/local/bin
     - name: install oidc
-      run: eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=offsetmax_cluster
+      run: eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=offsetmax_cluster --approve
 
     
     - name: Installing the AWS Load Balancer Controller add-on
