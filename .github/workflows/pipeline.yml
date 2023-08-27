@@ -45,8 +45,7 @@ jobs:
         cluster: offsetmax_cluster 
         region: ap-south-1
 
-    - name: install oidc
-      run: eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=offsetmax_cluster
+
        
 
     - name: Update kube config
@@ -62,6 +61,8 @@ jobs:
         tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 
         sudo mv /tmp/eksctl /usr/local/bin
+    - name: install oidc
+      run: eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=offsetmax_cluster
 
     
     - name: Installing the AWS Load Balancer Controller add-on
