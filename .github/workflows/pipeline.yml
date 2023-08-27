@@ -37,7 +37,7 @@ jobs:
     - name: Terraform Plan
       run: terraform plan
     - name: terraform apply
-      run: terraform delete -auto-approve
+      run: terraform apply -auto-approve
 
     - name: Setup EKS Kubectl
       uses: zachguo/setup-eks-kubectl@v1
