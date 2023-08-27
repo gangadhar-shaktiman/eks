@@ -42,7 +42,7 @@ jobs:
     - name: Setup EKS Kubectl
       uses: zachguo/setup-eks-kubectl@v1
       with:
-        cluster: offsetmax_cluster 
+        cluster: offsetmax-cluster 
         region: ap-south-1
 
 
