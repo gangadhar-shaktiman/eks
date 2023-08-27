@@ -44,6 +44,9 @@ jobs:
       with:
         cluster: offsetmax_cluster 
         region: ap-south-1
+
+    - name: install oidc
+      run: eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=offsetmax_cluster
        
 
     - name: Update kube config
