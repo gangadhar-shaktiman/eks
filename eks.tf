@@ -32,7 +32,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EK
 }
 
 resource "aws_eks_cluster" "offsetmax_cluster" {
-  name     = "offsetmax_cluster"
+  name     = "offsetmax-cluster"
   role_arn = aws_iam_role.offsetmax_cluster.arn
 
   vpc_config {
