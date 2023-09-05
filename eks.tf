@@ -56,6 +56,12 @@ resource "aws_security_group" "eks_node_group_sg" {
     to_port     = 9443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # You can restrict the source IP range if needed
+  },
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # You can restrict the source IP range if needed
   }
 }
 
