@@ -45,6 +45,20 @@ resource "aws_eks_cluster" "offsetmax_cluster" {
   ]
   
 }
+resource "aws_security_group" "eks_node_group_sg" {
+  name        = "eks-node-group-sg"
+  description = "Security Group for EKS Node Group"
+  vpc_id      = var.vpc_id  # Define your VPC ID here
+
+  # Define inbound rule for port 9443
+  ingress {
+    from_port   = 9443
+    to_port     = 9443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # You can restrict the source IP range if needed
+  }
+}
+
 
 resource "aws_iam_role" "offsetmax_nodes" {
   name = "eks-node-group-offsetmax_nodes"
@@ -84,10 +98,9 @@ resource "aws_eks_node_group" "offsetmax_nodes" {
   instance_types  = ["t3.xlarge"]
   capacity_type   = "ON_DEMAND"
 
-
   labels = {
-    "Name"="offsetmax"
-}
+    "Name" = "offsetmax"
+  }
 
   scaling_config {
     desired_size = 1
@@ -97,6 +110,12 @@ resource "aws_eks_node_group" "offsetmax_nodes" {
 
   update_config {
     max_unavailable = 1
+  }
+
+  # Attach the Security Group to the EKS node group
+  remote_access {
+    ec2_ssh_key = "your-key-pair-name"
+    source_security_group_ids = [aws_security_group.eks_node_group_sg.id]
   }
 
   depends_on = [
