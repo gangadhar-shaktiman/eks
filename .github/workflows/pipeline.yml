@@ -68,7 +68,8 @@ jobs:
       run: eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=offsetmax-cluster --approve
 
     - name: Download IAM policy for the AWS Load Balancer Controller
-      run: curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.1/docs/install/iam_policy.json
+      run: curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json
+
     
     - name: Create an IAM policy called AWSLoadBalancerControllerIAMPolicy
       run: aws iam create-policy \
