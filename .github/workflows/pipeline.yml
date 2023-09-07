@@ -73,7 +73,8 @@ jobs:
     - name: aws version
       run: |
           aws --version \
-          sudo chmod -R 755 /usr/local/aws-cli/
+          sudo chmod -R 755 /usr/local/aws-cli/   \
+          export PATH=/usr/local/bin:$PATH
     - name: Create an IAM policy called AWSLoadBalancerControllerIAMPolicy
       run: aws iam create-policy \
                --policy-name AWSLoadBalancerControllerIAMPolicy \
