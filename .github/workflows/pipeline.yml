@@ -42,7 +42,7 @@ jobs:
       run: terraform apply -auto-approve
 
     - name: Setup EKS Kubectl
-      uses: zachguo/setup-eks-kubectl@v1
+      uses: zachguo/setup-eks-kubectl@v2.0
       with:
         cluster: offsetmax-cluster 
         region: ap-south-1
