@@ -71,7 +71,9 @@ jobs:
       run: curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json
 
     - name: aws version
-      run: aws --version
+      run: |
+          aws --version \
+          sudo chmod -R 755 /usr/local/aws-cli/
     - name: Create an IAM policy called AWSLoadBalancerControllerIAMPolicy
       run: aws iam create-policy \
                --policy-name AWSLoadBalancerControllerIAMPolicy \
