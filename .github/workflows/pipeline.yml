@@ -76,6 +76,7 @@ jobs:
         --name=aws-load-balancer-controller \
         --role-name AmazonEKSLoadBalancerControllerRole \
         --attach-policy-arn=arn:aws:iam::168933414344:policy/AWSLoadBalancerControllerIAMPolicy \
+        --override-existing-serviceaccounts \
         --approve
 
     - name: Installing helm
