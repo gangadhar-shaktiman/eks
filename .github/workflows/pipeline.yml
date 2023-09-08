@@ -67,19 +67,6 @@ jobs:
     - name: install oidc
       run: eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=offsetmax-cluster --approve
 
-    - name: Download IAM policy for the AWS Load Balancer Controller
-      run: curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json
-
-    - name: aws version
-      run: |
-          aws --version \
-          sudo chmod -R 755 /usr/local/aws-cli/   \
-          export PATH=/usr/local/bin:$PATH
-    - name: Create an IAM policy called AWSLoadBalancerControllerIAMPolicy
-      run: aws iam create-policy \
-               --policy-name AWSLoadBalancerControllerIAMPolicy \
-               --policy-document file://iam_policy.json
-
     
     - name: Installing the AWS Load Balancer Controller add-on
       run: |
@@ -90,6 +77,7 @@ jobs:
         --role-name AmazonEKSLoadBalancerControllerRole \
         --attach-policy-arn=arn:aws:iam::168933414344:policy/AWSLoadBalancerControllerIAMPolicy \
         --approve
+
     - name: Installing helm
       run: |
         curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null \
