@@ -64,20 +64,20 @@ jobs:
 
         sudo mv /tmp/eksctl /usr/local/bin
 
-    - name: install oidc
-      run: eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=offsetmax-cluster --approve
+    # - name: install oidc
+    #   run: eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=offsetmax-cluster --approve
 
     
-    - name: Installing the AWS Load Balancer Controller add-on
-      run: |
-        eksctl create iamserviceaccount \
-        --cluster=offsetmax-cluster \
-        --namespace=kube-system \
-        --name=aws-load-balancer-controller \
-        --role-name AmazonEKSLoadBalancerControllerRole \
-        --attach-policy-arn=arn:aws:iam::168933414344:policy/AWSLoadBalancerControllerIAMPolicy \
-        --override-existing-serviceaccounts \
-        --approve
+    # - name: Installing the AWS Load Balancer Controller add-on
+    #   run: |
+    #     eksctl create iamserviceaccount \
+    #     --cluster=offsetmax-cluster \
+    #     --namespace=kube-system \
+    #     --name=aws-load-balancer-controller \
+    #     --role-name AmazonEKSLoadBalancerControllerRole \
+    #     --attach-policy-arn=arn:aws:iam::168933414344:policy/AWSLoadBalancerControllerIAMPolicy \
+    #     --override-existing-serviceaccounts \
+    #     --approve
 
     - name: Installing helm
       run: |
